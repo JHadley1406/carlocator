@@ -16,10 +16,13 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_main" />
-    <RecyclerView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/car_list">
 
-    </RecyclerView>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/main_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_dialog_email" />
+
 </android.support.design.widget.CoordinatorLayout>

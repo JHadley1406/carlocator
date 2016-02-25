@@ -1,45 +1,16 @@
 package com.utility.hhi.carlocator.model;
 
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.utility.hhi.carlocator.data.DBContract;
 
 /**
  * Created by Josiah Hadley on 2/21/2016.
  */
-public class Car implements Parcelable{
+public class Car{
 
-    public Car(){}
-
-    public Car(Parcel in){
-        setName(in.readString());
-        setVin(in.readString());
-        setOwner(in.readString());
-        setKeyLoc(in.readString());
-        setParkPass(in.readInt());
-        setLat(in.readString());
-        setLon(in.readString());
-    }
-
-
-    @Override
-    public int describeContents(){return 0;}
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags){
-        dest.writeString(this.getName());
-        dest.writeString(this.getVin());
-        dest.writeString(this.getOwner());
-        dest.writeString(this.getKeyLoc());
-        dest.writeInt(this.getParkPass());
-        dest.writeString(this.getLat());
-        dest.writeString(this.getLon());
-    }
-
-    public static final Parcelable.Creator<Car> CREATOR = new Parcelable.Creator<Car>(){
-        public Car createFromParcel(Parcel in){return new Car(in);}
-
-        public Car[] newArray(int size){return new Car[size];}
-    };
 
     public String getName() {
         return name;
@@ -97,6 +68,28 @@ public class Car implements Parcelable{
         this.parkPass = parkPass;
     }
 
+    public int getId(){
+        return id;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+
+    public static Car fromCursor(Cursor cursor){
+        Car car = new Car();
+        car.setId(cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.car_table._ID)));
+        car.setName(cursor.getString(cursor.getColumnIndexOrThrow(DBContract.car_table.NAME)));
+        car.setVin(cursor.getString(cursor.getColumnIndexOrThrow(DBContract.car_table.VIN)));
+        car.setKeyLoc(cursor.getString(cursor.getColumnIndexOrThrow(DBContract.car_table.KEY_LOC)));
+        car.setOwner(cursor.getString(cursor.getColumnIndexOrThrow(DBContract.car_table.OWNER)));
+        car.setParkPass(cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.car_table.HAS_PASS)));
+        car.setLon(cursor.getString(cursor.getColumnIndexOrThrow(DBContract.car_table.LON)));
+        car.setLat(cursor.getString(cursor.getColumnIndexOrThrow(DBContract.car_table.LAT)));
+        return car;
+    }
+
+    private int id;
     private String name;
     private String vin;
     private String owner;

@@ -17,12 +17,11 @@ import java.util.List;
  * Created by Josiah Hadley on 2/21/2016.
  */
 
-public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
+public class CarAdapter extends CursorRecyclerViewAdapter<CarViewHolder> {
 
-    private List<Car> mCars;
 
-    public CarAdapter(List<Car> cars){
-        this.mCars = cars;
+    public CarAdapter(Context context, Cursor cursor){
+        super(context,cursor);
     }
 
     @Override
@@ -34,14 +33,9 @@ public class CarAdapter extends RecyclerView.Adapter<CarViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(CarViewHolder viewHolder, int position){
-        Car car = mCars.get(position);
+    public void onBindViewHolder(CarViewHolder viewHolder, Cursor cursor){
+        Car car = Car.fromCursor(cursor);
         viewHolder.mCarName.setText(car.getName());
         viewHolder.mVin.setText(car.getVin());
-    }
-
-    @Override
-    public int getItemCount(){
-        return mCars.size();
     }
 }

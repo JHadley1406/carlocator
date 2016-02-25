@@ -10,4 +10,10 @@
     tools:showIn="@layout/activity_main"
     tools:context="com.utility.hhi.carlocator.views.MainActivity">
 
+    <RecyclerView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/car_list">
+
+    </RecyclerView>
 </RelativeLayout>
